@@ -1,0 +1,45 @@
+<?php
+    include "emails/PHPMailer/PHPMailerAutoload.php"; 
+	//or just include the php mailer class 
+    //Create a new PHPMailer instance
+    $mail = new PHPMailer(); 
+
+    $mail->IsSMTP(); 
+    $mail->SMTPDebug = 1; 
+    $mail->SMTPAuth = true; 
+    $mail->SMTPSecure = 'ssl'; 
+    $mail->Host = "smtp.gmail.com";
+	/*
+    
+    you also need to set the `allow less secure app` = ON 
+    in your gmail account which you want to use here 
+    :) 
+    on then you will be able to send the emails from your account
+    using phpMailer
+    
+    */
+    $mail->Port = 465; 
+    $mail->IsHTML(true);
+    //Username to use for SMTP authentication
+    $mail->Username = "@gmail.com";
+    $mail->Password = "";
+    //Set who the message is to be sent from
+    $mail->setFrom('mzubim@gmail.com', 'Zubair Mushtaq');
+    //Set an alternative reply-to address
+    $mail->addReplyTo('replyto@gmail.com', 'Secure Developer');
+    //Set who the message is to be sent to
+    $mail->addAddress('abulogics@gmail.com', 'Abulogicss');
+    //Set the subject line
+    $mail->Subject = 'PHPMailer SMTP test';
+    //Read an HTML message body from an external file, convert referenced images to embedded,
+    //convert HTML into a basic plain-text alternative body
+    $mail->msgHTML("convert HTML into a basic plain-text alternative body");
+    //Replace the plain text body with one created manually
+    $mail->AltBody = 'This is a plain-text message body';
+
+    //send the message, check for errors
+    if (!$mail->send()) {
+        echo "Mailer Error: " . $mail->ErrorInfo;
+    } else {
+        echo "Message sent!";
+    }
